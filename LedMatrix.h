@@ -21,6 +21,11 @@
 #define TEXT_ALIGN_RIGHT         2 // End of text is aligned to the right of the display
 #define TEXT_ALIGN_RIGHT_END     3 // End of text is just outside the left side of the display
 
+#define ROTATE_CCW_90           -1
+#define ROTATE_NONE              0
+#define ROTATE_CW_90             1
+#define ROTATE_180               2
+
 class LedMatrix {
 
 public:
@@ -118,9 +123,9 @@ public:
     void oscillateText();
 
     /**
-     * Enables 90° rotation for each 8x8 matrix.
+     * Enables rotation for each 8x8 matrix.
      */
-    void setRotation(bool enabled);
+    void setRotation(int angle);
 
 private:
     byte* cols;
@@ -136,8 +141,8 @@ private:
     byte mySlaveSelectPin = 0;
     byte myCharWidth = 7;
     byte myTextAlignment = 1;
-    bool rotationIsEnabled = false;
+    int rotationAngle = ROTATE_NONE;
 
     void calculateTextAlignmentOffset();
-    void rotateLeft();
+    void rotate();
 };

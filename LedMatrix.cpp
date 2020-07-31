@@ -97,9 +97,7 @@ void LedMatrix::clear() {
 }
 
 void LedMatrix::commit() {
-    if ( rotationIsEnabled ) {
-        rotateLeft();
-    }
+    rotate();
     for (byte col = 0; col < myNumberOfDevices * 8; col++) {
         sendByte(col / 8, col % 8 + 1, cols[col]);
     }
@@ -168,11 +166,14 @@ void LedMatrix::setPixel(byte x, byte y) {
     bitWrite(cols[x], y, true);
 }
 
-void LedMatrix::setRotation(bool enabled) {
-    rotationIsEnabled = enabled;
+void LedMatrix::setRotation(int angle) {
+    rotationAngle = angle;
 }
 
-void LedMatrix::rotateLeft() {
+void LedMatrix::rotate() {
+    if (rotationAngle == ROTATE_NONE) {
+      return;
+    }
     for (byte deviceNum = 0; deviceNum < myNumberOfDevices; deviceNum++) {
         for(byte posY = 0; posY < 8; posY++) {
             for(byte posX = 0; posX < 8; posX++) {
