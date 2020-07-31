@@ -171,15 +171,14 @@ void LedMatrix::setRotation(int angle) {
 }
 
 void LedMatrix::rotate() {
-    if (rotationAngle == ROTATE_NONE) {
-      return;
-    }
-    for (byte deviceNum = 0; deviceNum < myNumberOfDevices; deviceNum++) {
-        for(byte posY = 0; posY < 8; posY++) {
-            for(byte posX = 0; posX < 8; posX++) {
-                bitWrite(rotatedCols[8 * (deviceNum) + posY], posX, bitRead(cols[8 * (deviceNum) + 7-posX], posY));
+    for (int i = 0; i < rotationAngle; i++) {
+        for (byte deviceNum = 0; deviceNum < myNumberOfDevices; deviceNum++) {
+            for(byte posY = 0; posY < 8; posY++) {
+                for(byte posX = 0; posX < 8; posX++) {
+                    bitWrite(rotatedCols[8 * (deviceNum) + posY], posX, bitRead(cols[8 * (deviceNum) + 7-posX], posY));
+                }
             }
-        }
+          }
+        memcpy(cols, rotatedCols, myNumberOfDevices * 8);
     }
-    memcpy(cols, rotatedCols, myNumberOfDevices * 8);
 }

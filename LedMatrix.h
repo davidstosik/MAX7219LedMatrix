@@ -21,10 +21,10 @@
 #define TEXT_ALIGN_RIGHT         2 // End of text is aligned to the right of the display
 #define TEXT_ALIGN_RIGHT_END     3 // End of text is just outside the left side of the display
 
-#define ROTATE_CCW_90           -1
 #define ROTATE_NONE              0
-#define ROTATE_CW_90             1
+#define ROTATE_CCW_90            1
 #define ROTATE_180               2
+#define ROTATE_CW_90             3
 
 class LedMatrix {
 
